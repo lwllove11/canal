@@ -1,5 +1,14 @@
 package com.alibaba.otter.canal.adapter.launcher.monitor.remote;
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.otter.canal.adapter.launcher.config.AdapterConfigHolder;
+import com.alibaba.otter.canal.common.utils.CommonUtils;
+import com.alibaba.otter.canal.common.utils.NamedThreadFactory;
+import com.google.common.base.Joiner;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -14,16 +23,6 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.otter.canal.adapter.launcher.config.AdapterConfigHolder;
-import com.alibaba.otter.canal.common.utils.CommonUtils;
-import com.alibaba.otter.canal.common.utils.NamedThreadFactory;
-import com.google.common.base.Joiner;
 
 /**
  * 基于数据库的远程配置装载器
@@ -118,8 +117,8 @@ public class DbRemoteConfigLoader implements RemoteConfigLoader {
     private void overrideLocalCanalConfig(String content) {
 
         try (OutputStreamWriter writer = new OutputStreamWriter(
-            new FileOutputStream(CommonUtils.getConfPath() + "application.yml"),
-            StandardCharsets.UTF_8)) {
+                new FileOutputStream(CommonUtils.getConfPath() + "application.properties"),
+                StandardCharsets.UTF_8)) {
             writer.write(content);
             writer.flush();
         } catch (Exception e) {

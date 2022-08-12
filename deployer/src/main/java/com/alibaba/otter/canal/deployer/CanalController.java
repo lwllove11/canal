@@ -1,18 +1,5 @@
 package com.alibaba.otter.canal.deployer;
 
-import java.util.Map;
-import java.util.Properties;
-
-import org.I0Itec.zkclient.IZkStateListener;
-import org.I0Itec.zkclient.exception.ZkNoNodeException;
-import org.I0Itec.zkclient.exception.ZkNodeExistsException;
-import org.apache.commons.lang.BooleanUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.zookeeper.Watcher.Event.KeeperState;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-
 import com.alibaba.otter.canal.common.utils.AddressUtils;
 import com.alibaba.otter.canal.common.zookeeper.ZkClientx;
 import com.alibaba.otter.canal.common.zookeeper.ZookeeperPathUtils;
@@ -36,6 +23,18 @@ import com.alibaba.otter.canal.server.netty.CanalServerWithNetty;
 import com.google.common.base.Function;
 import com.google.common.collect.MapMaker;
 import com.google.common.collect.MigrateMap;
+import org.I0Itec.zkclient.IZkStateListener;
+import org.I0Itec.zkclient.exception.ZkNoNodeException;
+import org.I0Itec.zkclient.exception.ZkNodeExistsException;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.zookeeper.Watcher.Event.KeeperState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * canal调度控制器
@@ -100,11 +99,11 @@ public class CanalController {
         // 准备canal server
         ip = getProperty(properties, CanalConstants.CANAL_IP);
         registerIp = getProperty(properties, CanalConstants.CANAL_REGISTER_IP);
-        port = Integer.valueOf(getProperty(properties, CanalConstants.CANAL_PORT, "11111"));
-        adminPort = Integer.valueOf(getProperty(properties, CanalConstants.CANAL_ADMIN_PORT, "11110"));
+        port = Integer.parseInt(getProperty(properties, CanalConstants.CANAL_PORT, "11111"));
+        adminPort = Integer.parseInt(getProperty(properties, CanalConstants.CANAL_ADMIN_PORT, "11110"));
         embededCanalServer = CanalServerWithEmbedded.instance();
         embededCanalServer.setCanalInstanceGenerator(instanceGenerator);// 设置自定义的instanceGenerator
-        int metricsPort = Integer.valueOf(getProperty(properties, CanalConstants.CANAL_METRICS_PULL_PORT, "11112"));
+        int metricsPort = Integer.parseInt(getProperty(properties, CanalConstants.CANAL_METRICS_PULL_PORT, "11112"));
         embededCanalServer.setMetricsPort(metricsPort);
 
         this.adminUser = getProperty(properties, CanalConstants.CANAL_ADMIN_USER);

@@ -1,21 +1,20 @@
 package com.alibaba.otter.canal.admin.service.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-
+import com.alibaba.otter.canal.admin.common.exception.ServiceException;
+import com.alibaba.otter.canal.admin.model.CanalConfig;
+import com.alibaba.otter.canal.admin.model.NodeServer;
+import com.alibaba.otter.canal.admin.service.CanalConfigService;
+import com.alibaba.otter.canal.protocol.SecurityUtil;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.alibaba.otter.canal.admin.common.exception.ServiceException;
-import com.alibaba.otter.canal.admin.model.CanalConfig;
-import com.alibaba.otter.canal.admin.model.NodeServer;
-import com.alibaba.otter.canal.admin.service.CanalConfigService;
-import com.alibaba.otter.canal.protocol.SecurityUtil;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 /**
  * Canal配置信息业务层
@@ -28,8 +27,8 @@ public class CanalConfigServiceImpl implements CanalConfigService {
 
     private Logger              logger               = LoggerFactory.getLogger(CanalConfigServiceImpl.class);
 
-    private static final String CANAL_GLOBAL_CONFIG  = "canal.properties";
-    private static final String CANAL_ADAPTER_CONFIG = "application.yml";
+    private static final String CANAL_GLOBAL_CONFIG = "canal.properties";
+    private static final String CANAL_ADAPTER_CONFIG = "application.properties";
 
     public CanalConfig getCanalConfig(Long clusterId, Long serverId) {
         CanalConfig config = null;

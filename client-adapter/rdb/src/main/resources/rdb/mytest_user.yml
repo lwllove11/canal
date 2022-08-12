@@ -1,15 +1,15 @@
 dataSourceKey: defaultDS
-destination: example
+destination: mysql-canal
 groupId: g1
 outerAdapterKey: mysql1
 concurrent: true
 dbMapping:
-  database: mytest
-  table: user
-  targetTable: mytest2.user
+  database: sentinel
+  table: sentinel_metrics
+  targetTable: demo.sentinel_metrics_copy
   targetPk:
     id: id
-#  mapAll: true
+  #  mapAll: true
   targetColumns:
     id:
     name:

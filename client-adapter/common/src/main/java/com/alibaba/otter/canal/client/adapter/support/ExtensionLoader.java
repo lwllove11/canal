@@ -1,5 +1,9 @@
 package com.alibaba.otter.canal.client.adapter.support;
 
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
@@ -16,10 +20,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * SPI 类加载器
@@ -288,7 +288,7 @@ public class ExtensionLoader<T> {
                         || DEFAULT_CLASSLOADER_POLICY.equalsIgnoreCase(classLoaderPolicy)) {
                         localClassLoader = new URLClassExtensionLoader(new URL[] { url });
                     } else {
-                        localClassLoader = new URLClassLoader(new URL[] { url }, parent);
+                        localClassLoader = new URLClassLoader(new URL[]{url}, parent);
                     }
 
                     loadFile(extensionClasses, CANAL_DIRECTORY, localClassLoader);
@@ -298,9 +298,9 @@ public class ExtensionLoader<T> {
         }
         // 只加载外部spi, 不加载classpath
         // 2. load inner extension class with default classLoader
-        // ClassLoader classLoader = findClassLoader();
-        // loadFile(extensionClasses, CANAL_DIRECTORY, classLoader);
-        // loadFile(extensionClasses, SERVICES_DIRECTORY, classLoader);
+        ClassLoader classLoader = findClassLoader();
+        loadFile(extensionClasses, CANAL_DIRECTORY, classLoader);
+        loadFile(extensionClasses, SERVICES_DIRECTORY, classLoader);
 
         return extensionClasses;
     }
